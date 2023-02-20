@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="create-table-user" author="${author}">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <not>
+                <tableExists tableName="user_application"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_" remarks="Пользователь">
+            <column name="id" type="${uuid_type}" remarks="Идентификатор записи">
+                <constraints primaryKeyName="user_application_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="active" type="${boolean_type}" defaultValue="true" remarks="Флаг активности">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="${varchar_type}(120)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="${varchar_type}(120)" remarks="Фамилия пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="patronymic" type="${varchar_type}(120)" remarks="Отчество пользователя"/>
+            <column name="date_birthday" type="date" remarks="Дата рождения"/>
+            <column name="phone" type="${varchar_type}(11)" remarks="Номер телефона"/>
+            <column name="sex" type="${boolean_type}" defaultValue="true" remarks="Пол пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-grants-to-tables" author="${author}">
+        <sql>GRANT SELECT, INSERT, UPDATE, DELETE ON user_ TO ${db_user_name}</sql>
+    </changeSet>
+</databaseChangeLog>

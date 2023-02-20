@@ -1,0 +1,38 @@
+# SPRING PROPERTIES
+spring:
+  config:
+    import: classpath:env.properties
+  application:
+    name: evoice-user-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _audit
+            revision_field_name: revision_id
+            revision_type_field_name: revision_operation
+            store_data_at_delete: true
+            # track_entities_changed_in_revision: true
+            # audit_strategy: org.hibernate.response.strategy.ValidityAuditStrategy
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+  liquibase:
+    change-log: classpath:/liquibase/db.changelog.xml
+
+# EUREKA PROPERTIES
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:password@localhost:8761/eureka
+
+# THIS SERVICE OTHER PROPERTIES
+server:
+  port: 8083

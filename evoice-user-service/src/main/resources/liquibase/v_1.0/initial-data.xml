@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="insert-into-user" author="${author}" dbms="postgresql">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <tableExists tableName="user_"/>
+        </preConditions>
+
+        <insert tableName="user_">
+            <column name="id" valueComputed="(select uuid_generate_v4())"/>
+            <column name="active" value="true"/>
+            <column name="name" value="DEFAULT_USERNAME"/>
+            <column name="surname" value="DEFAULT_USERSURNAME"/>
+            <column name="patronymic" value="DEFAULT_USERPATRONYMIC"/>
+            <column name="date_birthday"
+                    valueComputed="(select cast('01.01.1992' as date) + (random() * (interval '90 days')) + '30 days')"/>
+            <column name="phone" value="9052407662"/>
+            <column name="sex" value="true"/>
+        </insert>
+        <insert tableName="user_">
+            <column name="id" valueComputed="(select uuid_generate_v4())"/>
+            <column name="active" value="true"/>
+            <column name="name" value="DEBUG_USERNAME"/>
+            <column name="surname" value="DEBUG_USERSURNAME"/>
+            <column name="patronymic" value="DEBUG_USERPATRONYMIC"/>
+            <column name="date_birthday"
+                    valueComputed="(select cast('01.01.1992' as date) + (random() * (interval '90 days')) + '30 days')"/>
+            <column name="phone" value="9052407662"/>
+            <column name="sex" value="true"/>
+        </insert>
+        <insert tableName="user_">
+            <column name="id" valueComputed="(select uuid_generate_v4())"/>
+            <column name="active" value="true"/>
+            <column name="name" value="TEST_USERNAME"/>
+            <column name="surname" value="TEST_USERSURNAME"/>
+            <column name="patronymic" value="TEST_USERPATRONYMIC"/>
+            <column name="date_birthday"
+                    valueComputed="(select cast('01.01.1992' as date) + (random() * (interval '90 days')) + '30 days')"/>
+            <column name="phone" value="9052407662"/>
+            <column name="sex" value="true"/>
+        </insert>
+        <insert tableName="user_">
+            <column name="id" valueComputed="(select uuid_generate_v4())"/>
+            <column name="active" value="true"/>
+            <column name="name" value="CORPORATION1_USERNAME"/>
+            <column name="surname" value="CORPORATION1_USERSURNAME"/>
+            <column name="patronymic" value="CORPORATION1_USERPATRONYMIC"/>
+            <column name="date_birthday"
+                    valueComputed="(select cast('01.01.1992' as date) + (random() * (interval '90 days')) + '30 days')"/>
+            <column name="phone" value="9052407662"/>
+            <column name="sex" value="true"/>
+        </insert>
+        <insert tableName="user_">
+            <column name="id" valueComputed="(select uuid_generate_v4())"/>
+            <column name="active" value="true"/>
+            <column name="name" value="CORPORATION2_USERNAME"/>
+            <column name="surname" value="CORPORATION2_USERSURNAME"/>
+            <column name="patronymic" value="CORPORATION2_USERPATRONYMIC"/>
+            <column name="date_birthday"
+                    valueComputed="(select cast('01.01.1992' as date) + (random() * (interval '90 days')) + '30 days')"/>
+            <column name="phone" value="9052407662"/>
+            <column name="sex" value="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
