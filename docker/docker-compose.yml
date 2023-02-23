@@ -2,8 +2,8 @@ version: '4.14.0'
 
 services:
   postgres:
-    container_name: postgres
     image: postgres
+    container_name: postgres-compose
     ports:
       - "5432:5432"
     restart: unless-stopped
@@ -12,3 +12,21 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+
+  keycloak:
+    depends_on:
+      - postgres
+    image: jboss/keycloak:16.1.1
+    container_name: keycloak-compose
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: ${KEYCLOACK_DB_ADDRESS:-postgres}
+      DB_DATABASE: ${KEYCLOACK_DB_NAME:-keycloack_db}
+      DB_SCHEMA: ${KEYCLOACK_DB_SCHEMA:-public}
+      DB_USER: ${KEYCLOACK_DB_USER:-evoice_keycloack_db}
+      DB_PASSWORD: ${KEYCLOACK_DB_USER:-evoice_keycloack_db}
+      KEYCLOAK_USER: ${KEYCLOACK_DB_USER:-admin}
+      KEYCLOAK_PASSWORD: ${KEYCLOACK_DB_USER:-admin}
