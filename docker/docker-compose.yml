@@ -1,0 +1,14 @@
+version: '4.14.0'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - ./sql/initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
