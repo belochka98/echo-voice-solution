@@ -8,7 +8,7 @@ services:
       - "5432:5432"
     restart: unless-stopped
     volumes:
-      - ./sql/initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
+      - ./imageConfiguration/postgres/initDB.sql:/docker-entrypoint-initdb.d/initDB.sql
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -22,6 +22,7 @@ services:
       - 8080:8080
     restart: unless-stopped
     environment:
+      KEYCLOAK_IMPORT: ./imageConfiguration/keycloak/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
       DB_VENDOR: postgres
       DB_ADDR: ${KEYCLOACK_DB_ADDRESS:-postgres}
       DB_DATABASE: ${KEYCLOACK_DB_NAME:-keycloack_db}
