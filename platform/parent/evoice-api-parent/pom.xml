@@ -8,6 +8,7 @@
         <groupId>evoice</groupId>
         <artifactId>platform</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>evoice</groupId>

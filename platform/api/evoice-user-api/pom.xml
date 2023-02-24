@@ -8,6 +8,7 @@
         <groupId>evoice</groupId>
         <artifactId>evoice-api-parent</artifactId>
         <version>1.0.0</version>
+        <relativePath>../../parent/evoice-api-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>evoice-user-api</artifactId>
