@@ -1,8 +1,8 @@
 -- Create user and database for user-service
 CREATE
-USER evoice_keycloack_db WITH ENCRYPTED PASSWORD 'evoice_keycloack_db';
+USER evoice_keycloak_db WITH ENCRYPTED PASSWORD 'evoice_keycloak_db';
 CREATE
-DATABASE keycloack_db OWNER evoice_keycloack_db;
+DATABASE keycloak_db OWNER evoice_keycloak_db;
 
 -- Create user and database for user-service
 CREATE
