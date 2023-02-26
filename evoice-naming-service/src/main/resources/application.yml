@@ -13,7 +13,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:${server.port}/eureka
+      defaultZone: http://eureka:password@localhost:${server.port}/eureka
     register-with-eureka: false
     fetch-registry: false
   instance:
@@ -21,4 +21,4 @@ eureka:
 
 # THIS SERVICE OTHER PROPERTIES
 server:
-  port: 8761
+  port: 8090

@@ -29,8 +29,8 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka:password@localhost:8761/eureka
+      defaultZone: http://eureka:password@localhost:8090/eureka
 
 # THIS SERVICE OTHER PROPERTIES
 server:
-  port: 8083
+  port: 8092
