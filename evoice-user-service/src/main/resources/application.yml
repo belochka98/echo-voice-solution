@@ -1,7 +1,5 @@
 # SPRING PROPERTIES
 spring:
-  config:
-    import: classpath:env.properties
   application:
     name: evoice-user-service
   jpa:
@@ -19,9 +17,9 @@ spring:
             # audit_strategy: org.hibernate.response.strategy.ValidityAuditStrategy
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: ${US_DB_URL:jdbc:postgresql://localhost:${US_DB_PORT:5432}/${US_DB_NAME:user_db}}
+    username: ${US_DB_USERNAME:evoice_user_db}
+    password: ${US_DB_PASSWORD:evoice_user_db}
     hikari:
       maximum-pool-size: 5
   liquibase:

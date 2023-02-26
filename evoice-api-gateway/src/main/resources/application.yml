@@ -31,7 +31,6 @@ spring:
         predicates[0]: Path=/api/user-service/**
         filters[0]: RewritePath=/api/user-service(?<segment>/?.*), $\{segment}
 
-
 # EUREKA PROPERTIES
 eureka:
   client:
