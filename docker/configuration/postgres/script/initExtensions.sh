@@ -1,5 +1,3 @@
-#!/bin/sh
-
 create_user_with_db() {
     echo "  Try to create database: '$1' with owner: '$2'"
     psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL

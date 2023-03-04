@@ -16,20 +16,27 @@ spring:
             # track_entities_changed_in_revision: true
             # audit_strategy: org.hibernate.response.strategy.ValidityAuditStrategy
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${US_DB_URL:jdbc:postgresql://localhost:${US_DB_PORT:5432}/${US_DB_NAME:user_db}}
+    driver-class-name: ${US_DB_DRIVER:org.postgresql.Driver}
+    url: ${US_DB_URL:jdbc:postgresql://localhost:5432/user_db}
     username: ${US_DB_USERNAME:evoice_user_db}
     password: ${US_DB_PASSWORD:evoice_user_db}
     hikari:
-      maximum-pool-size: 5
+      maximum-pool-size: ${US_DB_POOL:5}
   liquibase:
     change-log: classpath:/liquibase/db.changelog.xml
+
+# LOGGING PROPERTIES
+logging:
+  level:
+    root: debug
 
 # EUREKA PROPERTIES
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka:password@localhost:8090/eureka
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
+  instance:
+    hostname: ${EUREKA_HOST:localhost}
 
 # THIS SERVICE OTHER PROPERTIES
 server:
