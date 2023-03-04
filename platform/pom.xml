@@ -24,7 +24,6 @@
         <module>parent/evoice-service-parent</module>
 
         <!-- API DEPENDENCIES -->
-        <module>api/evoice-authentication-api</module>
         <module>api/evoice-user-api</module>
     </modules>
 </project>

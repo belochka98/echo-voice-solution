@@ -1,23 +1,17 @@
 # SPRING PROPERTIES
-spring:
-  application:
-    name: evoice-naming-service
+spring.application.name: evoice-naming-service
 
 # EUREKA PROPERTIES
 eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
-      register-with-eureka: false
-      fetch-registry: false
-  instance:
-    hostname: ${EUREKA_HOST:localhost}
+  client.serviceUrl:
+    defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
+    register-with-eureka: false
+    fetch-registry: false
+  instance.hostname: ${EUREKA_HOST:localhost}
 
 # LOGGING PROPERTIES
-logging:
-  level:
-    root: debug
+logging.level:
+  root: debug
 
 # THIS SERVICE OTHER PROPERTIES
-server:
-  port: 8090
+server.port: 8090

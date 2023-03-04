@@ -1,18 +1,12 @@
 # SPRING PROPERTIES
 spring:
-  application:
-    name: evoice-api-gateway
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/evoice-realm
+  application.name: evoice-api-gateway
+  security.oauth2.resourceserver.jwt.issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/evoice-realm
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      discovery.locator:
+        enabled: true
+        lower-case-service-id: true
       routes:
         # Naming Service Route
         - id: evoice-naming-service
@@ -36,11 +30,9 @@ spring:
 
 # EUREKA PROPERTIES
 eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
-  instance:
-    hostname: ${EUREKA_HOST:localhost}
+  client.serviceUrl:
+    defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
+  instance.hostname: ${EUREKA_HOST:localhost}
 
 # LOGGING PROPERTIES
 logging:
@@ -49,6 +41,10 @@ logging:
     org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: debug
     org.springframework.cloud.gateway: debug
 
+# ACTUATOR PROPERTIES
+management:
+  endpoint.gateway.enabled: true
+  endpoints.web.exposure.include: gateway
+
 # THIS SERVICE OTHER PROPERTIES
-server:
-  port: 8091
+server.port: 8091
