@@ -45,6 +45,8 @@ logging:
 management:
   endpoint.gateway.enabled: true
   endpoints.web.exposure.include: gateway
+  tracing.sampling.probability: 1.0
+  zipkin.tracing.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 # THIS SERVICE OTHER PROPERTIES
 server.port: 8091

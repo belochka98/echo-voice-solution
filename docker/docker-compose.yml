@@ -2,7 +2,7 @@ version: '4.14.0'
 
 services:
   postgres:
-    image: postgres
+    image: postgres:latest
     container_name: postgres-compose
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
-      - "5432:5432"
+      - ${POSTGRES_PORT:-5432}:5432
 
   keycloak:
     depends_on:
@@ -28,7 +28,7 @@ services:
     environment:
       # Default account
       KEYCLOAK_ADMIN: ${KEYCLOAK_USER:-admin}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_USER:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD:-admin}
       # Custom database for keycloak
       KC_DB: ${KEYCLOAK_DB:-postgres}
       KC_DB_URL_HOST: ${KEYCLOAK_DB:-postgres}
@@ -39,6 +39,14 @@ services:
       KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-evoice_keycloak_db}
     ports:
       - ${KEYCLOAK_PORT:-8080}:8080
+
+  zipkin:
+    depends_on:
+      - postgres
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - ${ZIPKIN_PORT:-9411}:9411
 
 volumes:
   postgres_data:

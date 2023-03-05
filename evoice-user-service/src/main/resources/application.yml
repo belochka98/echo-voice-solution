@@ -30,7 +30,10 @@ logging.level:
   root: debug
 
 # ACTUATOR PROPERTIES
-management.endpoints.web.exposure.include: health,info,env
+management:
+  endpoints.web.exposure.include: health,info,env
+  tracing.sampling.probability: 1.0
+  zipkin.tracing.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
 
 # THIS SERVICE OTHER PROPERTIES
 server.port: 8092
