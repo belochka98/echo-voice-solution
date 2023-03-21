@@ -6,7 +6,6 @@ spring:
     gateway:
       discovery.locator:
         enabled: true
-        lower-case-service-id: true
       routes:
         # Naming Service Route
         - id: evoice-naming-service

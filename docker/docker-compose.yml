@@ -17,7 +17,6 @@ services:
     environment:
       ### Discovery service settings - EUREKA
       EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
-      EUREKA_HOST: evoice-naming-service
       ### Other application service
       EVOICE_NAMING_SERVICE_PORT: ${EVOICE_NAMING_SERVICE_PORT:-8090}
     ports:
@@ -34,11 +33,10 @@ services:
     image: evoice-api-gateway:1.0.0
     container_name: evoice-api-gateway-service-compose
     environment:
-      ### Authorization service settings - KEYCLOAK
+      ### Authorization service settings - KEYCLOAK (should be same as ISS in token & 'Fronted URL' of realm)
       KEYCLOAK_URL: ${KEYCLOAK_URL:-http://keycloak:8080/auth/realms/evoice-realm-docker}
       ### Discovery service settings - EUREKA
       EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
-      EUREKA_HOST: evoice-naming-service
       ### Profiler http requests - ZIPKIN
       ZIPKIN_URL: ${ZIPKIN_URL:-http://zipkin:9411/api/v2/spans}
       ### Other application service
@@ -68,7 +66,6 @@ services:
       US_DB_POOL: ${US_DB_POOL:-5}
       ### Discovery service settings - EUREKA
       EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
-      EUREKA_HOST: evoice-naming-service
       ### Profiler http requests - ZIPKIN
       ZIPKIN_URL: ${ZIPKIN_URL:-http://zipkin:9411/api/v2/spans}
       ### Other application service

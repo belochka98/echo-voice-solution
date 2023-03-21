@@ -8,7 +8,6 @@ eureka:
       defaultZone: ${EUREKA_URL:http://localhost:8090/eureka}
     register-with-eureka: false
     fetch-registry: false
-  instance.hostname: ${EUREKA_HOST:localhost}
 
 # LOGGING PROPERTIES
 logging.level:
