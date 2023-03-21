@@ -2,6 +2,7 @@ version: '4.14.0'
 
 volumes:
   postgres_data: { }
+  prometheus_data: { }
   grafana_data: { }
 
 services:
@@ -12,7 +13,7 @@ services:
       - keycloak
       - zipkin
       - prometheus
-    image: evoice-naming-service:1.0.0
+    image: evoice/evoice-naming-service:1.0.0
     container_name: evoice-naming-service-compose
     environment:
       ### Discovery service settings - EUREKA
@@ -30,7 +31,7 @@ services:
       - prometheus
       - postgres
       - evoice-naming-service
-    image: evoice-api-gateway:1.0.0
+    image: evoice/evoice-api-gateway:1.0.0
     container_name: evoice-api-gateway-service-compose
     environment:
       ### Authorization service settings - KEYCLOAK (should be same as ISS in token & 'Fronted URL' of realm)
@@ -55,7 +56,7 @@ services:
       - postgres
       - evoice-naming-service
       - evoice-api-gateway
-    image: evoice-user-service:1.0.0
+    image: evoice/evoice-user-service:1.0.0
     container_name: evoice-user-service-compose
     environment:
       ### Database service - POSTGRES
@@ -124,6 +125,7 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
+      - prometheus_data:/prometheus
       - ./configuration/metrics/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - ${PROMETHEUS_PORT:-9090}:9090

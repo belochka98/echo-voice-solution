@@ -30,6 +30,14 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.3.1</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:17-alpine</image>
+                    </from>
+                    <to>
+                        <image>evoice/${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
