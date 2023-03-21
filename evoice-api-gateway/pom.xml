@@ -5,13 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
-        <relativePath/>
+        <groupId>evoice</groupId>
+        <artifactId>evoice-spring-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../platform/parent/evoice-spring-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>evoice</groupId>
     <artifactId>evoice-api-gateway</artifactId>
     <version>1.0.0</version>
     <name>evoice-api-gateway</name>
@@ -65,6 +64,11 @@
             <groupId>io.zipkin.reporter2</groupId>
             <artifactId>zipkin-reporter-brave</artifactId>
             <version>2.16.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>1.10.4</version>
         </dependency>
     </dependencies>
 </project>

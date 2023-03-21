@@ -1,7 +1,7 @@
 # SPRING PROPERTIES
 spring:
   application.name: evoice-api-gateway
-  security.oauth2.resourceserver.jwt.issuer-uri: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8080}/auth/realms/evoice-realm
+  security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_URL:http://localhost:8080/auth/realms/evoice-realm-service}
   cloud:
     gateway:
       discovery.locator:
@@ -10,14 +10,14 @@ spring:
       routes:
         # Naming Service Route
         - id: evoice-naming-service
-          uri: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}
+          uri: ${EUREKA_URL:http://localhost:8090/eureka}
           predicates:
             - Path=/eureka/web
           filters:
             - SetPath=/
         # Naming Service Static Resources Route
         - id: evoice-naming-service-static
-          uri: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}
+          uri: ${EUREKA_URL:http://localhost:8090/eureka}
           predicates:
             - Path=/eureka/**
         # User Service Route
@@ -31,22 +31,27 @@ spring:
 # EUREKA PROPERTIES
 eureka:
   client.serviceUrl:
-    defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
-  instance.hostname: ${EUREKA_HOST:localhost}
+    defaultZone: ${EUREKA_URL:http://localhost:8090/eureka}
+  instance:
+    prefer-ip-address: true
 
 # LOGGING PROPERTIES
 logging:
   level:
     root: debug
-    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: debug
-    org.springframework.cloud.gateway: debug
+    org.springframework.cloud:
+      gateway: debug
+      gateway.route.RouteDefinitionRouteLocator: debug
 
 # ACTUATOR PROPERTIES
 management:
+  endpoints:
+    web.exposure.include: health, info, prometheus, gateway
   endpoint.gateway.enabled: true
-  endpoints.web.exposure.include: gateway
   tracing.sampling.probability: 1.0
-  zipkin.tracing.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+  zipkin.tracing.endpoint: ${ZIPKIN_URL:http://localhost::9411/api/v2/spans}
+  metrics.tags:
+    application: ${spring.application.name}
 
 # THIS SERVICE OTHER PROPERTIES
-server.port: 8091
+server.port: ${EVOICE_API_GATEWAY_PORT:8091}

@@ -25,7 +25,6 @@ public interface UserApi {
     @DeleteMapping("/{userId}")
     void deleteUser(@PathVariable("userId") UUID userId);
 
-
     @GetMapping("/revisions/all/{userId}")
     Collection<RevisionDto> getAllRevisions(@PathVariable("userId") UUID userId);
 

@@ -22,8 +22,8 @@ spring:
 # EUREKA PROPERTIES
 eureka:
   client.serviceUrl:
-    defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka
-  instance.hostname: ${EUREKA_HOST:localhost}
+    defaultZone: ${EUREKA_URL:http://localhost:8090/eureka}
+  instance.preferIpAddress: true
 
 # LOGGING PROPERTIES
 logging.level:
@@ -31,9 +31,9 @@ logging.level:
 
 # ACTUATOR PROPERTIES
 management:
-  endpoints.web.exposure.include: health,info,env
+  endpoints.web.exposure.include: health, info, env
   tracing.sampling.probability: 1.0
-  zipkin.tracing.endpoint: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}/api/v2/spans
+  zipkin.tracing.endpoint: ${ZIPKIN_URL:http://localhost:9411/api/v2/spans}
 
 # THIS SERVICE OTHER PROPERTIES
-server.port: 8092
+server.port: ${EVOICE_USER_SERVICE_PORT:8092}

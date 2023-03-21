@@ -6,9 +6,9 @@
 
     <parent>
         <groupId>evoice</groupId>
-        <artifactId>evoice-api-parent</artifactId>
+        <artifactId>platform</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../parent/evoice-api-parent/pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>evoice-user-api</artifactId>
@@ -16,4 +16,15 @@
     <packaging>jar</packaging>
     <name>evoice-user-api</name>
     <description>Service assistant from the client side</description>
+
+    <dependencies>
+        <!-- EVOICE -->
+        <dependency>
+            <groupId>evoice</groupId>
+            <artifactId>evoice-api-core</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>

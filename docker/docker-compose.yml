@@ -1,23 +1,84 @@
 version: '4.14.0'
 
-services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres-compose
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./configuration/postgres/script:/docker-entrypoint-initdb.d/
-    environment:
-      # Default account
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-    ports:
-      - ${POSTGRES_PORT:-5432}:5432
+volumes:
+  postgres_data: { }
+  grafana_data: { }
 
+services:
+  # APPLICATION SERVICES
+  ##  DISCOVERY SERVICE
+  evoice-naming-service:
+    depends_on:
+      - keycloak
+      - zipkin
+      - prometheus
+    image: evoice-naming-service:1.0.0
+    container_name: evoice-naming-service-compose
+    environment:
+      ### Discovery service settings - EUREKA
+      EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
+      EUREKA_HOST: evoice-naming-service
+      ### Other application service
+      EVOICE_NAMING_SERVICE_PORT: ${EVOICE_NAMING_SERVICE_PORT:-8090}
+    ports:
+      - ${EXTERNAL_EVOICE_NAMING_SERVICE_PORT:-8090}:${EVOICE_NAMING_SERVICE_PORT:-8090}
+
+  ##  API GATEWAY SERVICE
+  evoice-api-gateway:
+    depends_on:
+      - keycloak
+      - zipkin
+      - prometheus
+      - postgres
+      - evoice-naming-service
+    image: evoice-api-gateway:1.0.0
+    container_name: evoice-api-gateway-service-compose
+    environment:
+      ### Authorization service settings - KEYCLOAK
+      KEYCLOAK_URL: ${KEYCLOAK_URL:-http://keycloak:8080/auth/realms/evoice-realm-docker}
+      ### Discovery service settings - EUREKA
+      EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
+      EUREKA_HOST: evoice-naming-service
+      ### Profiler http requests - ZIPKIN
+      ZIPKIN_URL: ${ZIPKIN_URL:-http://zipkin:9411/api/v2/spans}
+      ### Other application service
+      EVOICE_API_GATEWAY_PORT: ${EVOICE_API_GATEWAY_PORT:-8091}
+    ports:
+      - ${EXTERNAL_EVOICE_API_GATEWAY_PORT:-8091}:${EVOICE_API_GATEWAY_PORT:-8091}
+    expose:
+      - ${EXTERNAL_EVOICE_API_GATEWAY_PORT:-8091}
+
+  ##  USER SERVICE
+  evoice-user-service:
+    depends_on:
+      - keycloak
+      - zipkin
+      - prometheus
+      - postgres
+      - evoice-naming-service
+      - evoice-api-gateway
+    image: evoice-user-service:1.0.0
+    container_name: evoice-user-service-compose
+    environment:
+      ### Database service - POSTGRES
+      US_DB_DRIVER: ${US_DB_DRIVER:-org.postgresql.Driver}
+      US_DB_URL: ${US_DB_URL:-jdbc:postgresql://postgres:5432/user_db}
+      US_DB_USERNAME: ${US_DB_USERNAME:-evoice_user_db}
+      US_DB_PASSWORD: ${US_DB_PASSWORD:-evoice_user_db}
+      US_DB_POOL: ${US_DB_POOL:-5}
+      ### Discovery service settings - EUREKA
+      EUREKA_URL: ${EUREKA_URL:-http://evoice-naming-service:8090/eureka}
+      EUREKA_HOST: evoice-naming-service
+      ### Profiler http requests - ZIPKIN
+      ZIPKIN_URL: ${ZIPKIN_URL:-http://zipkin:9411/api/v2/spans}
+      ### Other application service
+      EVOICE_USER_SERVICE_PORT: ${EVOICE_USER_SERVICE_PORT:-8092}
+
+  ##  KEYCLOAK AUTHORIZATION SERVICE
   keycloak:
     depends_on:
       - postgres
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:21.0.1
     container_name: keycloak-compose
     command:
       - start-dev
@@ -26,28 +87,58 @@ services:
     volumes:
       - ./configuration/keycloak:/opt/keycloak/data/import
     environment:
-      # Default account
-      KEYCLOAK_ADMIN: ${KEYCLOAK_USER:-admin}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD:-admin}
-      # Custom database for keycloak
-      KC_DB: ${KEYCLOAK_DB:-postgres}
-      KC_DB_URL_HOST: ${KEYCLOAK_DB:-postgres}
-      KC_DB_URL_PORT: ${KEYCLOAK_DB_PORT:-5432}
-      KC_DB_SCHEMA: ${KEYCLOAK_DB_SCHEMA:-public}
-      KC_DB_URL_DATABASE: ${KEYCLOAK_DB_NAME:-keycloak_db}
-      KC_DB_USERNAME: ${KEYCLOAK_DB_USER:-evoice_keycloak_db}
-      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:-evoice_keycloak_db}
+      ### Default account
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      ### Custom database for keycloak
+      KC_DB: ${KC_DB:-postgres}
+      KC_DB_URL: ${KC_DB_URL:-jdbc:postgresql://postgres:5432/keycloak_db}
+      KC_DB_USERNAME: ${KC_DB_USERNAME:-evoice_keycloak_db}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD:-evoice_keycloak_db}
     ports:
-      - ${KEYCLOAK_PORT:-8080}:8080
+      - ${EXTERNAL_KEYCLOAK_PORT:-8080}:8080
 
+  # APPLICATION COMMONS
+  ##  POSTGRES DB
+  postgres:
+    image: postgres:15.2
+    container_name: postgres-compose
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./configuration/postgres/script:/docker-entrypoint-initdb.d/
+    environment:
+      ### Default account
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - ${EXTERNAL_POSTGRES_PORT:-5432}:5432
+
+  ##  ZIPKIN
   zipkin:
-    depends_on:
-      - postgres
-    image: openzipkin/zipkin
-    container_name: zipkin
+    image: openzipkin/zipkin:2.12.2
+    container_name: zipkin-compose
     ports:
       - ${ZIPKIN_PORT:-9411}:9411
 
-volumes:
-  postgres_data:
-    driver: local
+  ##  PROMETHEUS
+  prometheus:
+    image: prom/prometheus:v2.37.6
+    container_name: prometheus-compose
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./configuration/metrics/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - ${PROMETHEUS_PORT:-9090}:9090
+
+  #  grafana:
+#    image: grafana/grafana-oss:2.12.2
+#    container_name: grafana-compose
+#    volumes:
+#      - grafana_data:/var/lib/grafana
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+#      - GF_SERVER_DOMAIN=${GRAFANA_HOST:-localhost}
+#    ports:
+#      - ${GRAFANA_PORT:-3000}:3000
+

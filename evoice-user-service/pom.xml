@@ -7,7 +7,7 @@
         <groupId>evoice</groupId>
         <artifactId>evoice-service-parent</artifactId>
         <version>1.0.0</version>
-        <relativePath/>
+        <relativePath>../platform/parent/evoice-service-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>evoice-user-service</artifactId>

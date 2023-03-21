@@ -20,7 +20,7 @@
         <module>core/evoice-api-core</module>
 
         <!-- PARENT DEPENDENCIES -->
-        <module>parent/evoice-api-parent</module>
+        <module>parent/evoice-spring-parent</module>
         <module>parent/evoice-service-parent</module>
 
         <!-- API DEPENDENCIES -->
