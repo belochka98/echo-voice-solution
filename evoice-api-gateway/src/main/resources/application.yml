@@ -7,18 +7,6 @@ spring:
       discovery.locator:
         enabled: true
       routes:
-        # Naming Service Route
-        - id: evoice-naming-service
-          uri: ${EUREKA_URL:http://localhost:8090/eureka}
-          predicates:
-            - Path=/eureka/web
-          filters:
-            - SetPath=/
-        # Naming Service Static Resources Route
-        - id: evoice-naming-service-static
-          uri: ${EUREKA_URL:http://localhost:8090/eureka}
-          predicates:
-            - Path=/eureka/**
         # User Service Route
         - id: evoice-user-service
           uri: lb://evoice-user-service
