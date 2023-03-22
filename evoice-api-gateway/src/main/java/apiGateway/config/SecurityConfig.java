@@ -14,7 +14,7 @@ public class SecurityConfig {
             ServerHttpSecurity serverHttpSecurity
     ) {
         serverHttpSecurity
-                .authorizeExchange(exchange -> exchange.pathMatchers("/actuator/**").permitAll().anyExchange().authenticated())
+                .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
         return serverHttpSecurity.build();
     }
