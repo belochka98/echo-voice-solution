@@ -4,8 +4,7 @@ spring:
   security.oauth2.resourceserver.jwt.issuer-uri: ${KEYCLOAK_URL:http://localhost:8080/auth/realms/evoice-realm-service}
   cloud:
     gateway:
-      discovery.locator:
-        enabled: true
+      discovery.locator.enabled: true
       routes:
         # User Service Route
         - id: evoice-user-service
@@ -30,15 +29,18 @@ logging:
       gateway: debug
       gateway.route.RouteDefinitionRouteLocator: debug
 
-# ACTUATOR PROPERTIES
+# METRICS PROPERTIES
 management:
+  # ACTUATOR / PROMETHEUS PROPERTIES
   endpoints:
     web.exposure.include: health, info, prometheus, gateway
   endpoint.gateway.enabled: true
   tracing.sampling.probability: 1.0
-  zipkin.tracing.endpoint: ${ZIPKIN_URL:http://localhost::9411/api/v2/spans}
   metrics.tags:
     application: ${spring.application.name}
+  # ZIPKIN PROPERTIES
+  zipkin.tracing.endpoint: ${ZIPKIN_URL:http://localhost::9411/api/v2/spans}
+
 
 # THIS SERVICE OTHER PROPERTIES
 server.port: ${EVOICE_API_GATEWAY_PORT:8091}

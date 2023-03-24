@@ -139,6 +139,8 @@ services:
     container_name: grafana-compose
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./configuration/metrics/grafana/datasources:/etc/grafana/provisioning/datasources/
+      - ./configuration/metrics/grafana/dashboards:/etc/grafana/provisioning/dashboards/
     environment:
       ### Default account
       GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
