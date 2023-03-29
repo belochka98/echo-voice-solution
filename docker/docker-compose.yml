@@ -42,6 +42,7 @@ services:
       ZIPKIN_URL: ${ZIPKIN_URL:-http://zipkin:9411/api/v2/spans}
       ### Other application service
       EVOICE_API_GATEWAY_PORT: ${EVOICE_API_GATEWAY_PORT:-8091}
+      SERVICE_URL: ${EVOICE_API_GATEWAY_URL:-http://evoice-api-gateway:8091}
     ports:
       - ${EXTERNAL_EVOICE_API_GATEWAY_PORT:-8091}:${EVOICE_API_GATEWAY_PORT:-8091}
     expose:

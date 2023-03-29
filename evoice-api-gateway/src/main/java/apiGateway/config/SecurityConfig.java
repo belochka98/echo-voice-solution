@@ -16,13 +16,18 @@ import org.springframework.security.web.server.util.matcher.PathPatternParserSer
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
+    private static final String[] PERMIT_ROUTE_LIST = {
+            "/api-docs/**",
+            "/services/*/api-docs",
+    };
+
     @Bean
     @Order(1)
-    public SecurityWebFilterChain securityAnyExchange(
+    public SecurityWebFilterChain securityApiExchanges(
             ServerHttpSecurity serverHttpSecurity
     ) {
         serverHttpSecurity
-                .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/api/**"))
+                .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/services/*/api/**"))
                 .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
         return serverHttpSecurity.build();
@@ -30,7 +35,7 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityWebFilterChain securityActuator(
+    public SecurityWebFilterChain securityActuatorExchanges(
             ServerHttpSecurity serverHttpSecurity,
             ReactiveAuthenticationManager reactiveAuthenticationManager
     ) {
@@ -43,7 +48,35 @@ public class SecurityConfig {
     }
 
     @Bean
-    ReactiveAuthenticationManager reactiveAuthenticationManager() {
+    @Order(3)
+    public SecurityWebFilterChain securityOpenApiExchanges(
+            ServerHttpSecurity serverHttpSecurity,
+            ReactiveAuthenticationManager reactiveAuthenticationManager
+    ) {
+        serverHttpSecurity
+                .securityMatcher(new PathPatternParserServerWebExchangeMatcher("/webjars/**"))
+                .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
+                .authenticationManager(reactiveAuthenticationManager)
+                .httpBasic();
+        return serverHttpSecurity.build();
+    }
+
+    @Bean
+    @Order(4)
+    public SecurityWebFilterChain securityAnyExchange(
+            ServerHttpSecurity serverHttpSecurity
+    ) {
+        serverHttpSecurity
+                .authorizeExchange()
+                .pathMatchers(PERMIT_ROUTE_LIST)
+                .permitAll()
+                .anyExchange()
+                .authenticated();
+        return serverHttpSecurity.build();
+    }
+
+    @Bean
+    public ReactiveAuthenticationManager reactiveAuthenticationManager() {
         return new UserDetailsRepositoryReactiveAuthenticationManager(getInMemoryUserDetails());
     }
 

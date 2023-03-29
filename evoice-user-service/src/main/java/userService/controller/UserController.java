@@ -26,7 +26,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Validated
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/api/users")
 @CrossOrigin(methods = {GET, POST, DELETE})
 @RequiredArgsConstructor
 public class UserController implements UserApi {
