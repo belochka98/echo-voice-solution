@@ -10,9 +10,31 @@
     <packaging>pom</packaging>
 
     <properties>
+        <!-- SIMILAR AS platform/parent/evoice-spring-parent/pom.xml -->
+
         <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring.version>6.0.7</spring.version>
+        <spring.boot.version>3.0.5</spring.boot.version>
+        <spring.cloud.version>4.0.1</spring.cloud.version>
+        <spring.data.envers.version>3.0.4</spring.data.envers.version>
+        <spring.data.commons.version>3.0.4</spring.data.commons.version>
+        <spring.hibernate.envers.version>6.2.0.Final</spring.hibernate.envers.version>
+        <spring.openapi.version>2.0.4</spring.openapi.version>
+
+        <database.postgres.version>42.6.0</database.postgres.version>
+        <database.liquibase.version>4.20.0</database.liquibase.version>
+
+        <tools.lombok.version>1.18.24</tools.lombok.version>
+        <tools.mapstruct.version>1.5.2.Final</tools.mapstruct.version>
+
+        <metrics.zipkin.version>2.16.3</metrics.zipkin.version>
+        <metrics.micrometer.version>1.10.5</metrics.micrometer.version>
+        <metrics.micrometer.bridge.version>1.0.3</metrics.micrometer.bridge.version>
     </properties>
 
     <modules>

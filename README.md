@@ -37,11 +37,11 @@ PostgreSQL,
 Open Feign,
 Zipkin,
 Prometheus,
-Grafana.
+Grafana,
+Swagger.
 
 ### in the pipeline:
 
-Swagger,
 Kibana,
 BPMN Camunda.
 

@@ -16,11 +16,11 @@
     <description>Service provider of naming-service data and the main processing link</description>
 
     <dependencies>
-        <!-- SPRING -->
+        <!-- CLOUD -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-            <version>4.0.0</version>
+            <version>${spring.cloud.version}</version>
         </dependency>
     </dependencies>
 </project>
