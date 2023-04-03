@@ -12,9 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Users API", version = "1.0", description = "Users Information"))
 public class UserServiceApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApplication.class, args);
     }
-
 }

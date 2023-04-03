@@ -36,6 +36,7 @@
         <spring.openapi.version>2.0.4</spring.openapi.version>
 
         <database.postgres.version>42.6.0</database.postgres.version>
+        <database.hsqldb.version>2.7.1</database.hsqldb.version>
         <database.liquibase.version>4.20.0</database.liquibase.version>
 
         <tools.lombok.version>1.18.24</tools.lombok.version>

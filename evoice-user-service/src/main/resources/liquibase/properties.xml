@@ -4,15 +4,18 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <!-- UUID !-->
-    <property name="uuid_type" value="VARCHAR(32 CHAR)" dbms="hsqldb"/>
+    <property name="uuid_type" value="uuid" dbms="hsqldb"/>
     <property name="uuid_type" value="uuid" dbms="postgresql"/>
     <property name="uuid_type" value="VARCHAR(32)" dbms="oracle"/>
 
-    <property name="uuid_function" value="UUID()" dbms="hsqldb"/>
+    <property name="uuid_function" value="uuid()" dbms="hsqldb"/>
     <property name="uuid_function" value="uuid_generate_v4()" dbms="postgresql"/>
-    <property name="uuid_function" value="sys_guid()" dbms="oracle"/>
+    <property name="uuid_function"
+              value="regexp_replace(lower(sys_guid()),'(^.{8})(.{4})(.{4})(.{4})(.{12}$)','\1-\2-\3-\4-\5')"
+              dbms="oracle"/>
 
     <!-- BOOLEAN !-->
+    <property name="boolean_type" value="boolean" dbms="hsqldb"/>
     <property name="boolean_type" value="NUMBER(1,0)" dbms="oracle"/>
     <property name="boolean_type" value="boolean" dbms="postgresql"/>
 

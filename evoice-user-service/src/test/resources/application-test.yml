@@ -1,0 +1,11 @@
+# SPRING PROPERTIES
+spring:
+  test.database.replace: none
+  application.name: evoice-user-service
+  jpa.database-platform: org.hibernate.dialect.HSQLDialect
+  datasource:
+    driver-class-name: org.hsqldb.jdbcDriver
+    url: jdbc:hsqldb:mem:testdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    hikari.maximum-pool-size: ${US_DB_POOL:5}

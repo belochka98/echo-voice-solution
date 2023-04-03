@@ -4,17 +4,17 @@ import org.springframework.data.history.Revision;
 import org.springframework.data.history.Revisions;
 import userService.entity.User;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
     User getUser(UUID userId);
 
-    Collection<User> getAllUsers();
+    List<User> getAllUsers();
 
     User saveUser(User user);
 
-    Collection<User> saveUsers(Collection<User> users);
+    List<User> saveUsers(List<User> users);
 
     void deleteUser(UUID userId);
 

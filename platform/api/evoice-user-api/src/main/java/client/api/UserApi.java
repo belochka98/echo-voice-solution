@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface UserApi {
@@ -17,7 +17,7 @@ public interface UserApi {
     ResultResponse<UserDto> getUserById(@PathVariable("userId") UUID userId);
 
     @GetMapping("/all")
-    ResultResponse<Collection<UserDto>> getAllUsers();
+    ResultResponse<List<UserDto>> getAllUsers();
 
     @PostMapping("/save")
     ResultResponse<UserDto> saveUser(@RequestBody UserDto user);
@@ -26,8 +26,10 @@ public interface UserApi {
     void deleteUser(@PathVariable("userId") UUID userId);
 
     @GetMapping("/revisions/all/{userId}")
-    Collection<RevisionDto> getAllRevisions(@PathVariable("userId") UUID userId);
+    @SuppressWarnings("rawtypes")
+    List<RevisionDto> getAllRevisions(@PathVariable("userId") UUID userId);
 
     @GetMapping("/revisions/last/{userId}")
+    @SuppressWarnings("rawtypes")
     RevisionDto getLastRevision(@PathVariable("userId") UUID userId);
 }

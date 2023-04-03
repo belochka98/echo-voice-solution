@@ -16,7 +16,7 @@ import userService.mapper.RevisionMapper;
 import userService.mapper.UserMapper;
 import userService.service.UserService;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -43,7 +43,7 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public ResultResponse<Collection<UserDto>> getAllUsers() {
+    public ResultResponse<List<UserDto>> getAllUsers() {
         return responseFactory.createResponseOk(
                 userMapper.to(userService.getAllUsers())
         );
@@ -62,11 +62,13 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public Collection<RevisionDto> getAllRevisions(@PathVariable UUID userId) {
-        return revisionMapperDefault.mapRevisions(userService.getRevisions(userId).stream().collect(Collectors.toSet()));
+    @SuppressWarnings("rawtypes")
+    public List<RevisionDto> getAllRevisions(@PathVariable UUID userId) {
+        return revisionMapperDefault.mapRevisions(userService.getRevisions(userId).stream().collect(Collectors.toList()));
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public RevisionDto getLastRevision(@PathVariable UUID userId) {
         return revisionMapperDefault.apply(userService.getLastRevision(userId));
     }

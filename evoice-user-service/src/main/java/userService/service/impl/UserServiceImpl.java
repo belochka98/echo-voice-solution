@@ -8,9 +8,8 @@ import userService.entity.User;
 import userService.repository.UserRepository;
 import userService.service.UserService;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -33,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> saveUsers(Collection<User> users) {
-        return users.parallelStream().map(this::saveUser).collect(Collectors.toSet());
+    public List<User> saveUsers(List<User> users) {
+        return userRepository.saveAllAndFlush(users);
     }
 
     @Override
