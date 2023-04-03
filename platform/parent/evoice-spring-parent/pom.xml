@@ -41,6 +41,7 @@
 
         <tools.lombok.version>1.18.24</tools.lombok.version>
         <tools.mapstruct.version>1.5.2.Final</tools.mapstruct.version>
+        <tools.easy-random.version>5.0.0</tools.easy-random.version>
 
         <metrics.zipkin.version>2.16.3</metrics.zipkin.version>
         <metrics.micrometer.version>1.10.5</metrics.micrometer.version>
