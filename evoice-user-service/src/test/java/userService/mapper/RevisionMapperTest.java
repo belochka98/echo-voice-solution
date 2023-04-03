@@ -25,7 +25,7 @@ class RevisionMapperTest {
     private final EasyRandom easyRandom = new EasyRandom(new EasyRandomParametersCustom());
 
     @Test
-    @DisplayName("Test of mapping List<Revision> to List<RevisionDto> (POSITIVE)")
+    @DisplayName("Test of mapping Revision to RevisionDto (POSITIVE)")
     void apply() {
         final var user = easyRandom.nextObject(User.class);
         final var revisionEntity = easyRandom.nextObject(RevisionEntityCustom.class);
