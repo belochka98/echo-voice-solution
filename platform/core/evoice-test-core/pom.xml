@@ -11,14 +11,21 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>evoice-api-core</artifactId>
+    <artifactId>evoice-test-core</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>evoice-api-core</name>
+    <name>evoice-test-core</name>
     <description>Core service for attaching and generalizing functions and classes</description>
 
     <dependencies>
         <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
@@ -28,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-hateoas</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
@@ -36,9 +43,9 @@
 
         <!-- TOOLS -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${tools.lombok.version}</version>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-core</artifactId>
+            <version>${tools.easy-random.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>

@@ -40,8 +40,4 @@ Prometheus,
 Grafana,
 Swagger.
 
-### in the pipeline:
-
-Kibana,
-BPMN Camunda.
-
+![plot](./sources/maven architecture.png)

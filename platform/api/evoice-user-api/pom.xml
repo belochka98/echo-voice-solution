@@ -6,9 +6,9 @@
 
     <parent>
         <groupId>evoice</groupId>
-        <artifactId>platform</artifactId>
+        <artifactId>evoice-api-parent</artifactId>
         <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../../parent/evoice-api-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>evoice-user-api</artifactId>
@@ -23,7 +23,7 @@
             <groupId>evoice</groupId>
             <artifactId>evoice-api-core</artifactId>
             <version>1.0.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>

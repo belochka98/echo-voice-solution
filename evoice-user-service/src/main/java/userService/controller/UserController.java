@@ -64,7 +64,7 @@ public class UserController implements UserApi {
     @Override
     @SuppressWarnings("rawtypes")
     public List<RevisionDto> getAllRevisions(@PathVariable UUID userId) {
-        return revisionMapperDefault.mapRevisions(userService.getRevisions(userId).stream().collect(Collectors.toList()));
+        return revisionMapperDefault.apply(userService.getRevisions(userId).stream().collect(Collectors.toList()));
     }
 
     @Override

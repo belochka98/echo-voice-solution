@@ -11,10 +11,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.function.Function;
 
 @Mapper(componentModel = "spring", imports = {LocalDate.class, Instant.class, ZoneId.class, RevisionEntityCustom.class}, uses = RevisionMapper.class, unmappedTargetPolicy = ReportingPolicy.ERROR)
 @SuppressWarnings("rawtypes")
-public interface RevisionMapper {
+public interface RevisionMapper extends Function<Revision, RevisionDto> {
+    @Override
     @Mapping(target = "id", expression = "java(source.getRequiredRevisionNumber().longValue())")
     @Mapping(target = "operation", expression = "java(source.getMetadata().getRevisionType())")
     @Mapping(target = "date", expression = "java(LocalDate.ofInstant(source.getMetadata().getRequiredRevisionInstant(), ZoneId.systemDefault()))")
@@ -22,5 +24,5 @@ public interface RevisionMapper {
     @Mapping(target = "object", expression = "java(source.getEntity())")
     RevisionDto apply(Revision source);
 
-    List<RevisionDto> mapRevisions(List<Revision> source);
+    List<RevisionDto> apply(List<Revision> source);
 }

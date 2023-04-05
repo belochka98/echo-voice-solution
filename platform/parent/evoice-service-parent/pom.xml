@@ -154,6 +154,12 @@
             <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>evoice</groupId>
+            <artifactId>evoice-test-core</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- TEST -->
         <dependency>

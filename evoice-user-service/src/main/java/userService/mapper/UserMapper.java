@@ -6,9 +6,11 @@ import org.mapstruct.ReportingPolicy;
 import userService.entity.User;
 
 import java.util.List;
+import java.util.function.Function;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
+public interface UserMapper extends Function<User, UserDto> {
+    @Override
     UserDto apply(User source);
 
     List<UserDto> to(List<User> source);

@@ -1,4 +1,4 @@
-package userService.utils.templates;
+package templates;
 
 import jakarta.annotation.PostConstruct;
 import org.assertj.core.api.Assertions;
@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.annotation.Validated;
-import userService.utils.EasyRandomParametersCustom;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
@@ -18,9 +17,10 @@ import java.util.UUID;
 public abstract class DataJPATestTemplate<E> {
     @SuppressWarnings("unchecked")
     private final Class<E> persistentEntityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-    protected final EasyRandom easyRandom = new EasyRandom(new EasyRandomParametersCustom());
 
     protected abstract CrudRepository<E, UUID> getRepository();
+
+    protected abstract EasyRandom getEasyRandom();
 
     @PostConstruct
     private void setUp() {
@@ -28,7 +28,7 @@ public abstract class DataJPATestTemplate<E> {
     }
 
     private void testCRUDRepository() {
-        final var entities = easyRandom.objects(persistentEntityClass, 15).toList();
+        final var entities = this.getEasyRandom().objects(persistentEntityClass, 15).toList();
         final var repository = this.getRepository();
 
         Assertions.assertThat(repository.saveAll(entities))

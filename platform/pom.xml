@@ -42,10 +42,12 @@
     <modules>
         <!-- CORE DEPENDENCIES -->
         <module>core/evoice-api-core</module>
+        <module>core/evoice-test-core</module>
 
         <!-- PARENT DEPENDENCIES -->
         <module>parent/evoice-spring-parent</module>
         <module>parent/evoice-service-parent</module>
+        <module>parent/evoice-api-parent</module>
 
         <!-- API DEPENDENCIES -->
         <module>api/evoice-user-api</module>
