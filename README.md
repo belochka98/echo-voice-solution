@@ -41,3 +41,6 @@ Grafana,
 Swagger.
 
 ![plot](https://github.com/belochka98/echo-voice-solution/blob/main/sources/maven%20architecture.png)
+
+
+#### p.s. https://github.com/belochka98/echo-voice-solution/blob/main/sources/echo-voice-solution.postman_collection.json - here is postman collection ;)
