@@ -40,4 +40,4 @@ Prometheus,
 Grafana,
 Swagger.
 
-![Alt text](./sources/maven architecture.png)
+![plot](https://github.com/belochka98/echo-voice-solution/blob/main/sources/maven%20architecture.png)
