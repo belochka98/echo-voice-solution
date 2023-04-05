@@ -40,4 +40,4 @@ Prometheus,
 Grafana,
 Swagger.
 
-![plot](./sources/maven architecture.png)
+![Alt text](./sources/maven architecture.png)
